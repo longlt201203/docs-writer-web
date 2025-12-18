@@ -19,6 +19,10 @@ declare module '@tanstack/react-router' {
 }
 
 const queryClient = new QueryClient();
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+console.log(googleClientId);
+
+
 
 // Render the app
 const rootElement = document.getElementById('root')!
@@ -26,7 +30,7 @@ if (!rootElement.innerHTML) {
   const root = createRoot(rootElement)
   root.render(
     <StrictMode>
-      <GoogleOAuthProvider clientId='...'>
+      <GoogleOAuthProvider clientId={googleClientId}>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
         </QueryClientProvider>
