@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -16,6 +16,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
+
 export const Route = createFileRoute('/auth/login')({
   component: RouteComponent,
 })
@@ -28,11 +30,6 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-const mockAccount = {
-  usernameOrEmail: 'user',
-  password: '123',
-}
-
 function RouteComponent() {
   const form = useForm<LoginFormValues>({
     defaultValues: {
@@ -41,28 +38,71 @@ function RouteComponent() {
     },
   });
 
+  const navigate = Route.useNavigate()
+
   const loginMutation = useMutation({
-    mutationFn: async (data: LoginFormValues) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      if (
-        data.usernameOrEmail !== mockAccount.usernameOrEmail ||
-        data.password !== mockAccount.password
-      ) {
-        throw new Error('Invalid username/email or password');
+    mutationFn: async (values: LoginFormValues) => {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          username: values.usernameOrEmail?.trim(),
+          pass: values.password,
+        }),
+      })
+
+      const body = await response.json().catch(() => null)
+
+      if (!response.ok) {
+        throw new Error(body?.message ?? 'Unable to sign in')
       }
-      return "OK";
-    }
+
+      return body
+    },
+    onSuccess: () => {
+      navigate({ to: '/' })
+    },
   })
 
-  const isSubmitting = loginMutation.isPending;
+  const googleLoginMutation = useMutation({
+    mutationFn: async (idToken: string) => {
+      const response = await fetch(`${API_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ idToken }),
+      })
+
+      const body = await response.json().catch(() => null)
+
+      if (!response.ok) {
+        throw new Error(body?.message ?? 'Unable to sign in with Google')
+      }
+
+      return body
+    },
+    onSuccess: () => {
+      navigate({ to: '/' })
+    },
+  })
+
+  const isSubmitting = loginMutation.isPending || googleLoginMutation.isPending;
+  const authError = (loginMutation.error ?? googleLoginMutation.error) as
+    | Error
+    | undefined
 
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Login</CardTitle>
-        {loginMutation.isError ? (
+        {authError ? (
           <p className="text-sm text-destructive">
-            {(loginMutation.error as Error)?.message ?? 'Unable to sign in'}
+            {authError.message ?? 'Unable to sign in'}
           </p>
         ) : null}
       </CardHeader>
@@ -121,11 +161,16 @@ function RouteComponent() {
           <Separator />
 
           <GoogleLogin
-            onSuccess={credentialResponse => {
-              console.log(credentialResponse);
+            onSuccess={(credentialResponse) => {
+              const idToken = credentialResponse.credential
+              if (!idToken) {
+                console.error('Missing Google credential')
+                return
+              }
+              googleLoginMutation.mutate(idToken)
             }}
             onError={() => {
-              console.log('Login Failed');
+              console.error('Google Login Failed')
             }}
           />
         </div>
