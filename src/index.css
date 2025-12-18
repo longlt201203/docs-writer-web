@@ -118,3 +118,221 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Yoopta editor surface */
+  .yoopta-editor {
+    background-color: inherit;
+    color: inherit;
+    border-radius: calc(var(--radius) + 1rem);
+    border: none;
+    padding: clamp(1.25rem, 3vw, 2.75rem);
+    box-shadow: none;
+    width: 100%;
+  }
+
+  .yoopta-editor-surface {
+    display: block;
+    border-radius: calc(var(--radius) + 1rem);
+  }
+
+  .yoopta-editor .yoopta-block {
+    border-radius: var(--radius-md);
+    padding-inline: 0.35rem;
+  }
+
+  .yoopta-placeholder:after {
+    color: var(--muted-foreground);
+    opacity: 0.75;
+  }
+
+  .yoopta-selection-block:before {
+    background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+
+  /* Buttons + generic actions */
+  .yoopta-button,
+  .yoopta-block-options-button {
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    font-weight: 500;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .yoopta-button:hover,
+  .yoopta-block-options-button:hover {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    border-color: var(--secondary);
+  }
+
+  .yoopta-button:focus-visible,
+  .yoopta-block-options-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ring);
+  }
+
+  .yoopta-button[aria-pressed="true"],
+  .yoopta-button[data-active="true"],
+  .yoopta-button[data-state="on"] {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 60%, transparent);
+  }
+
+  /* Toolbar */
+  .yoopta-toolbar-root {
+    background-color: var(--popover);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 0.5rem;
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.15);
+    gap: 0.35rem;
+  }
+
+  .yoopta-toolbar-group {
+    background-color: color-mix(in srgb, var(--muted) 70%, transparent);
+    border-radius: 999px;
+    padding: 0.15rem;
+    gap: 0.15rem;
+  }
+
+  .yoopta-toolbar-item,
+  .yoopta-toolbar-item-mark {
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .yoopta-toolbar-separator {
+    width: 1px;
+    background-color: color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  /* Floating menus */
+  .yoopta-action-menu-list-content,
+  .yoopta-table-options,
+  .yoopta-link-tool {
+    background-color: var(--popover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18);
+    color: var(--popover-foreground);
+    backdrop-filter: blur(12px);
+  }
+
+  .yoopta-action-menu-list-content button {
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+
+  .yoopta-action-menu-list-content button:hover,
+  .yoopta-action-menu-list-content button[aria-selected="true"] {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+    border-color: var(--accent);
+  }
+
+  .yoopta-link-tool {
+    padding: 1.25rem;
+    min-width: min(420px, 80vw);
+    gap: 0.75rem;
+  }
+
+  .yoopta-link-tool-input,
+  .yoopta-link-tool select,
+  .yoopta-link-tool textarea {
+    background-color: var(--input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--foreground);
+    padding: 0.45rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .yoopta-link-tool-label {
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+
+  .yoopta-link-preview {
+    background-color: color-mix(in srgb, var(--muted) 85%, var(--background));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.5rem 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .yoopta-link-preview button {
+    height: 32px;
+    width: 32px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background-color: transparent;
+  }
+
+  .yoopta-link-preview button:hover {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+  }
+
+  /* Table styling */
+  .yoopta-table {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .yoopta-table-data-cell,
+  .yoopta-table-data-cell-head {
+    border-color: color-mix(in srgb, var(--border) 85%, transparent);
+    background-color: transparent;
+  }
+
+  .yoopta-table-data-cell-head {
+    background-color: color-mix(in srgb, var(--muted) 80%, transparent);
+    color: var(--muted-foreground);
+    font-weight: 600;
+  }
+
+  .yoopta-table-data-cell-content {
+    font-size: 0.95rem;
+    color: var(--foreground);
+  }
+
+  .yoopta-table-column-button,
+  .yoopta-table-row-button {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    color: var(--muted-foreground);
+  }
+
+  /* Inline marks */
+  .yoopta-mark-code {
+    background-color: color-mix(in srgb, var(--muted) 80%, transparent);
+    color: var(--foreground);
+    border-radius: var(--radius-sm);
+    font-family:
+      "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+  }
+
+  .yoopta-mark-highlight {
+    background-color: color-mix(in srgb, var(--primary) 35%, transparent);
+    color: var(--primary-foreground);
+    border-radius: var(--radius-sm);
+    padding-inline: 0.1rem;
+  }
+}
