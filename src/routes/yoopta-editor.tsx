@@ -20,7 +20,7 @@ import YooptaCallout from "@yoopta/callout";
 import YooptaVideo from "@yoopta/video";
 import { NumberedList, BulletedList, TodoList } from "@yoopta/lists";
 import { HeadingOne, HeadingTwo, HeadingThree } from "@yoopta/headings";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import LinkTool, { DefaultLinkToolRender } from "@yoopta/link-tool";
 import ActionMenu, { DefaultActionMenuRender } from "@yoopta/action-menu-list";
 import Toolbar, { DefaultToolbarRender } from "@yoopta/toolbar";
@@ -32,6 +32,9 @@ import {
   Strike,
   Highlight,
 } from "@yoopta/marks";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const plugins = [
   YooptaParagraph,
@@ -78,24 +81,50 @@ export const Route = createFileRoute("/yoopta-editor")({
 function RouteComponent() {
   const editor = useMemo(() => createYooptaEditor(), []);
   const [value, setValue] = useState<YooptaContentValue>();
-  const onChange = (value: YooptaContentValue, _: YooptaOnChangeOptions) => {
-    setValue(value);
-  };
+  const [title, setTitle] = useState("");
+  const handleChange = useCallback(
+    (nextValue: YooptaContentValue, _: YooptaOnChangeOptions) => {
+      setValue(nextValue);
+    },
+    []
+  );
 
   return (
-    <div className="w-screen h-screen px-20 py-10">
-      <div className="w-full min-h-full border rounded">
-        <YooptaEditor
-          editor={editor}
-          placeholder="Type text.."
-          value={value}
-          onChange={onChange}
-          plugins={plugins}
-          tools={tools}
-          marks={marks}
-          style={{ width: "100%" }}
-        />
+    <section className="min-h-screen bg-background px-4 py-10 text-foreground md:px-10 lg:px-16">
+      <div className="mx-auto h-full w-full max-w-5xl">
+        <Card className="flex min-h-[calc(100vh-4rem)] flex-col border-border/60 bg-card/95 shadow-lg shadow-primary/10">
+          <CardContent className="flex flex-1 flex-col px-0 pb-6">
+            <div className="border-b border-border/60 px-6 pb-4">
+              <Label
+                htmlFor="document-title"
+                className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+              >
+                Document Title
+              </Label>
+              <Input
+                id="document-title"
+                placeholder="Untitled document"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                className="mt-2 h-12 rounded-lg border border-border bg-card/70 text-2xl font-semibold text-foreground shadow-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50"
+              />
+            </div>
+            <div className="flex-1 px-4 py-4 md:px-6">
+              <YooptaEditor
+                editor={editor}
+                placeholder="Start outlining your next knowledge base article..."
+                value={value}
+                onChange={handleChange}
+                plugins={plugins}
+                tools={tools}
+                marks={marks}
+                className="yoopta-editor-surface"
+                style={{ width: "100%", minHeight: "100%" }}
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </section>
   );
 }
