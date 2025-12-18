@@ -43,71 +43,71 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.985 0.035 320);
-  --foreground: oklch(0.28 0.08 320);
-  --card: oklch(0.97 0.04 318);
-  --card-foreground: oklch(0.28 0.08 320);
-  --popover: oklch(0.99 0.03 322);
-  --popover-foreground: oklch(0.28 0.08 320);
-  --primary: oklch(0.68 0.2 315);
-  --primary-foreground: oklch(0.99 0.015 320);
-  --secondary: oklch(0.93 0.05 345);
-  --secondary-foreground: oklch(0.32 0.06 320);
-  --muted: oklch(0.95 0.02 330);
-  --muted-foreground: oklch(0.48 0.04 320);
-  --accent: oklch(0.9 0.1 350);
-  --accent-foreground: oklch(0.3 0.08 320);
+  --background: oklch(0.99 0.006 310);
+  --foreground: oklch(0.32 0.05 305);
+  --card: oklch(0.985 0.01 320);
+  --card-foreground: oklch(0.32 0.05 305);
+  --popover: oklch(0.99 0.006 310);
+  --popover-foreground: oklch(0.28 0.05 300);
+  --primary: oklch(0.72 0.16 316);
+  --primary-foreground: oklch(0.99 0.01 320);
+  --secondary: oklch(0.94 0.01 300);
+  --secondary-foreground: oklch(0.4 0.03 300);
+  --muted: oklch(0.93 0.008 285);
+  --muted-foreground: oklch(0.48 0.03 305);
+  --accent: oklch(0.9 0.05 320);
+  --accent-foreground: oklch(0.34 0.06 310);
   --destructive: oklch(0.62 0.25 25);
-  --border: oklch(0.9 0.03 320);
-  --input: oklch(0.9 0.03 320);
-  --ring: oklch(0.75 0.15 315);
+  --border: oklch(0.88 0.01 300);
+  --input: oklch(0.9 0.01 300);
+  --ring: oklch(0.78 0.12 316);
   --chart-1: oklch(0.7 0.18 312);
   --chart-2: oklch(0.68 0.16 2);
   --chart-3: oklch(0.64 0.08 200);
   --chart-4: oklch(0.76 0.13 80);
   --chart-5: oklch(0.78 0.12 340);
-  --sidebar: oklch(0.985 0.035 320);
-  --sidebar-foreground: oklch(0.28 0.08 320);
-  --sidebar-primary: oklch(0.68 0.2 315);
-  --sidebar-primary-foreground: oklch(0.99 0.015 320);
-  --sidebar-accent: oklch(0.93 0.05 345);
-  --sidebar-accent-foreground: oklch(0.28 0.08 320);
-  --sidebar-border: oklch(0.9 0.03 320);
-  --sidebar-ring: oklch(0.75 0.15 315);
+  --sidebar: oklch(0.99 0.006 310);
+  --sidebar-foreground: oklch(0.32 0.05 305);
+  --sidebar-primary: oklch(0.72 0.16 316);
+  --sidebar-primary-foreground: oklch(0.99 0.01 320);
+  --sidebar-accent: oklch(0.94 0.01 300);
+  --sidebar-accent-foreground: oklch(0.36 0.04 305);
+  --sidebar-border: oklch(0.88 0.01 300);
+  --sidebar-ring: oklch(0.78 0.12 316);
 }
 
 .dark {
-  --background: oklch(0.22 0.06 315);
-  --foreground: oklch(0.96 0.015 320);
-  --card: oklch(0.26 0.07 318);
-  --card-foreground: oklch(0.96 0.015 320);
-  --popover: oklch(0.26 0.07 318);
-  --popover-foreground: oklch(0.96 0.015 320);
-  --primary: oklch(0.82 0.17 320);
-  --primary-foreground: oklch(0.26 0.07 318);
-  --secondary: oklch(0.34 0.05 345);
-  --secondary-foreground: oklch(0.96 0.015 320);
-  --muted: oklch(0.32 0.04 320);
-  --muted-foreground: oklch(0.68 0.05 320);
-  --accent: oklch(0.38 0.06 350);
-  --accent-foreground: oklch(0.96 0.015 320);
-  --destructive: oklch(0.55 0.21 25);
-  --border: oklch(0.4 0.04 320);
-  --input: oklch(0.4 0.04 320);
-  --ring: oklch(0.64 0.13 315);
+  --background: oklch(0.18 0.03 305);
+  --foreground: oklch(0.94 0.015 320);
+  --card: oklch(0.22 0.03 305);
+  --card-foreground: oklch(0.94 0.015 320);
+  --popover: oklch(0.22 0.03 305);
+  --popover-foreground: oklch(0.94 0.015 320);
+  --primary: oklch(0.78 0.14 320);
+  --primary-foreground: oklch(0.22 0.03 305);
+  --secondary: oklch(0.32 0.015 300);
+  --secondary-foreground: oklch(0.9 0.02 320);
+  --muted: oklch(0.28 0.012 290);
+  --muted-foreground: oklch(0.74 0.02 320);
+  --accent: oklch(0.38 0.04 320);
+  --accent-foreground: oklch(0.94 0.015 320);
+  --destructive: oklch(0.52 0.19 25);
+  --border: oklch(0.34 0.01 300);
+  --input: oklch(0.34 0.01 300);
+  --ring: oklch(0.62 0.09 318);
   --chart-1: oklch(0.64 0.15 315);
   --chart-2: oklch(0.58 0.18 5);
   --chart-3: oklch(0.58 0.1 205);
   --chart-4: oklch(0.66 0.13 85);
   --chart-5: oklch(0.62 0.1 338);
-  --sidebar: oklch(0.24 0.07 318);
-  --sidebar-foreground: oklch(0.96 0.015 320);
-  --sidebar-primary: oklch(0.7 0.18 318);
-  --sidebar-primary-foreground: oklch(0.22 0.06 315);
-  --sidebar-accent: oklch(0.34 0.05 345);
-  --sidebar-accent-foreground: oklch(0.96 0.015 320);
-  --sidebar-border: oklch(0.4 0.04 320);
-  --sidebar-ring: oklch(0.64 0.13 315);
+  --sidebar: oklch(0.2 0.025 305);
+  --sidebar-foreground: oklch(0.94 0.015 320);
+  --sidebar-primary: oklch(0.78 0.14 320);
+  --sidebar-primary-foreground: oklch(0.22 0.03 305);
+  --sidebar-accent: oklch(0.32 0.015 300);
+  --sidebar-accent-foreground: oklch(0.9 0.02 320);
+  --sidebar-border: oklch(0.34 0.01 300);
+  --sidebar-ring: oklch(0.62 0.09 318);
 }
 
 @layer base {
@@ -116,5 +116,223 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Yoopta editor surface */
+  .yoopta-editor {
+    background-color: inherit;
+    color: inherit;
+    border-radius: calc(var(--radius) + 1rem);
+    border: none;
+    padding: clamp(1.25rem, 3vw, 2.75rem);
+    box-shadow: none;
+    width: 100%;
+  }
+
+  .yoopta-editor-surface {
+    display: block;
+    border-radius: calc(var(--radius) + 1rem);
+  }
+
+  .yoopta-editor .yoopta-block {
+    border-radius: var(--radius-md);
+    padding-inline: 0.35rem;
+  }
+
+  .yoopta-placeholder:after {
+    color: var(--muted-foreground);
+    opacity: 0.75;
+  }
+
+  .yoopta-selection-block:before {
+    background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+
+  /* Buttons + generic actions */
+  .yoopta-button,
+  .yoopta-block-options-button {
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    font-weight: 500;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .yoopta-button:hover,
+  .yoopta-block-options-button:hover {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    border-color: var(--secondary);
+  }
+
+  .yoopta-button:focus-visible,
+  .yoopta-block-options-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ring);
+  }
+
+  .yoopta-button[aria-pressed="true"],
+  .yoopta-button[data-active="true"],
+  .yoopta-button[data-state="on"] {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 60%, transparent);
+  }
+
+  /* Toolbar */
+  .yoopta-toolbar-root {
+    background-color: var(--popover);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 0.5rem;
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.15);
+    gap: 0.35rem;
+  }
+
+  .yoopta-toolbar-group {
+    background-color: color-mix(in srgb, var(--muted) 70%, transparent);
+    border-radius: 999px;
+    padding: 0.15rem;
+    gap: 0.15rem;
+  }
+
+  .yoopta-toolbar-item,
+  .yoopta-toolbar-item-mark {
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .yoopta-toolbar-separator {
+    width: 1px;
+    background-color: color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  /* Floating menus */
+  .yoopta-action-menu-list-content,
+  .yoopta-table-options,
+  .yoopta-link-tool {
+    background-color: var(--popover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18);
+    color: var(--popover-foreground);
+    backdrop-filter: blur(12px);
+  }
+
+  .yoopta-action-menu-list-content button {
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+
+  .yoopta-action-menu-list-content button:hover,
+  .yoopta-action-menu-list-content button[aria-selected="true"] {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+    border-color: var(--accent);
+  }
+
+  .yoopta-link-tool {
+    padding: 1.25rem;
+    min-width: min(420px, 80vw);
+    gap: 0.75rem;
+  }
+
+  .yoopta-link-tool-input,
+  .yoopta-link-tool select,
+  .yoopta-link-tool textarea {
+    background-color: var(--input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--foreground);
+    padding: 0.45rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .yoopta-link-tool-label {
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+
+  .yoopta-link-preview {
+    background-color: color-mix(in srgb, var(--muted) 85%, var(--background));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.5rem 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .yoopta-link-preview button {
+    height: 32px;
+    width: 32px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background-color: transparent;
+  }
+
+  .yoopta-link-preview button:hover {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+  }
+
+  /* Table styling */
+  .yoopta-table {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .yoopta-table-data-cell,
+  .yoopta-table-data-cell-head {
+    border-color: color-mix(in srgb, var(--border) 85%, transparent);
+    background-color: transparent;
+  }
+
+  .yoopta-table-data-cell-head {
+    background-color: color-mix(in srgb, var(--muted) 80%, transparent);
+    color: var(--muted-foreground);
+    font-weight: 600;
+  }
+
+  .yoopta-table-data-cell-content {
+    font-size: 0.95rem;
+    color: var(--foreground);
+  }
+
+  .yoopta-table-column-button,
+  .yoopta-table-row-button {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    color: var(--muted-foreground);
+  }
+
+  /* Inline marks */
+  .yoopta-mark-code {
+    background-color: color-mix(in srgb, var(--muted) 80%, transparent);
+    color: var(--foreground);
+    border-radius: var(--radius-sm);
+    font-family:
+      "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+  }
+
+  .yoopta-mark-highlight {
+    background-color: color-mix(in srgb, var(--primary) 35%, transparent);
+    color: var(--primary-foreground);
+    border-radius: var(--radius-sm);
+    padding-inline: 0.1rem;
   }
 }
