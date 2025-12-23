@@ -84,6 +84,7 @@ function RouteComponent() {
   const [title, setTitle] = useState("");
   const handleChange = useCallback(
     (nextValue: YooptaContentValue, _: YooptaOnChangeOptions) => {
+      console.log(nextValue);
       setValue(nextValue);
     },
     []
