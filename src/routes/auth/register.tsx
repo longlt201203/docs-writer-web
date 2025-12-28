@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { initUpload } from '@/lib/apis/uploads/uploads.api'
 
 export const Route = createFileRoute('/auth/register')({
   component: RouteComponent,
@@ -47,10 +48,48 @@ const mockRegister = async (data: RegisterFormValues) => {
   return data
 }
 
-const mockUploadAvatar = async (file: File) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  const fakeCdnHost = 'https://cdn.example.com/uploads'
-  return `${fakeCdnHost}/${encodeURIComponent(file.name)}`
+const updateAvatar = async (file: File) => {
+  const initResponse = await initUpload({
+    files: [
+      {
+        filename: file.name,
+        size: file.size,
+      },
+    ],
+  })
+
+  if (!initResponse.success || !initResponse.data?.files?.length) {
+    throw new Error(initResponse.message ?? 'Unable to prepare avatar upload')
+  }
+
+  const [fileConfig] = initResponse.data.files
+
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('api_key', fileConfig.apiKey)
+  formData.append('timestamp', String(fileConfig.timestamp))
+  formData.append('folder', fileConfig.folder)
+  formData.append('public_id', fileConfig.publicId)
+  formData.append('signature', fileConfig.signature)
+
+  const response = await fetch(fileConfig.url, {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    const message = await response.text()
+    throw new Error(message || 'Avatar upload failed')
+  }
+
+  const payload: { secure_url?: string; url?: string } = await response.json()
+  const imageUrl = payload.secure_url ?? payload.url
+
+  if (!imageUrl) {
+    throw new Error('Upload response is missing a URL')
+  }
+
+  return imageUrl
 }
 
 function RouteComponent() {
@@ -71,8 +110,8 @@ function RouteComponent() {
     mutationFn: mockRegister,
   })
 
-  const uploadAvatarMutation = useMutation({
-    mutationFn: mockUploadAvatar,
+  const uploadAvatarMutation = useMutation<string, Error, File>({
+    mutationFn: updateAvatar,
     onSuccess: (url) => {
       form.setValue('avatar', url, { shouldDirty: true, shouldValidate: true })
     },
