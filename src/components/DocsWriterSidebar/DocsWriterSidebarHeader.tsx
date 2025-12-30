@@ -10,9 +10,11 @@ import { SidebarHeader } from "../ui/sidebar";
 import { useState } from "react";
 import FolderDialog, { type FolderFormValues } from "../dialog/FolderDialog";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function DocsWriterSidebarHeader() {
   const [folderDialogOpen, setFolderDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const folderMutation = useMutation({
     mutationFn: async (values: FolderFormValues) => {
@@ -40,7 +42,13 @@ export default function DocsWriterSidebarHeader() {
               <DropdownMenuItem onClick={() => setFolderDialogOpen(true)}>
                 Create Folder
               </DropdownMenuItem>
-              <DropdownMenuItem>Create Document</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigate({ to: "/user/document", search: { id: undefined } })
+                }
+              >
+                Create Document
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
