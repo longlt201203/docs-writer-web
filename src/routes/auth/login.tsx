@@ -74,7 +74,7 @@ function RouteComponent() {
       return response
     },
     onSuccess: () => {
-      navigate({ to: '/' })
+      navigate({ to: '/user' })
     },
   })
 

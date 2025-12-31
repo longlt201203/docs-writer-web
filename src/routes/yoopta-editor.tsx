@@ -84,6 +84,7 @@ function RouteComponent() {
   const [title, setTitle] = useState("");
   const handleChange = useCallback(
     (nextValue: YooptaContentValue, _: YooptaOnChangeOptions) => {
+      console.log(nextValue);
       setValue(nextValue);
     },
     []
@@ -118,7 +119,6 @@ function RouteComponent() {
                 plugins={plugins}
                 tools={tools}
                 marks={marks}
-                className="yoopta-editor-surface"
                 style={{ width: "100%", minHeight: "100%" }}
               />
             </div>
