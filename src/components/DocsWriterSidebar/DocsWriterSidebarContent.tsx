@@ -26,6 +26,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { FolderFormValues } from "../dialog/FolderDialog";
 import FolderDialog from "../dialog/FolderDialog";
 import ConfirmDialog from "../dialog/ConfirmDialog";
+import { useNavigate } from "@tanstack/react-router";
 
 const mockFolders: FolderFormValues[] = Array.from({ length: 10 }).map(
   (_, index) => ({
@@ -39,6 +40,7 @@ export default function DocsWriterSidebarContent() {
   const [folder, setFolder] = useState<FolderFormValues>();
   const [confirmDeleteFolderOpen, setConfirmDeleteFolderOpen] = useState(false);
   const [deleteFolderId, setDeleteFolderId] = useState<number>();
+  const navigate = useNavigate();
 
   const folderMutation = useMutation({
     mutationFn: async (values: FolderFormValues) => {
@@ -112,7 +114,15 @@ export default function DocsWriterSidebarContent() {
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       {Array.from({ length: 5 }).map((_, subIndex) => (
-                        <SidebarMenuSubItem key={subIndex}>
+                        <SidebarMenuSubItem
+                          key={subIndex}
+                          onClick={() =>
+                            navigate({
+                              to: "/user/document",
+                              search: { id: subIndex + 1 },
+                            })
+                          }
+                        >
                           <SidebarMenuButton>
                             Document {subIndex + 1}
                           </SidebarMenuButton>

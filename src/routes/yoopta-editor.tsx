@@ -119,7 +119,6 @@ function RouteComponent() {
                 plugins={plugins}
                 tools={tools}
                 marks={marks}
-                className="yoopta-editor-surface"
                 style={{ width: "100%", minHeight: "100%" }}
               />
             </div>
