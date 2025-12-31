@@ -43,6 +43,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 const plugins = [
   YooptaParagraph,
@@ -92,6 +93,7 @@ export const Route = createFileRoute("/user/document/")({
 });
 
 function RouteComponent() {
+  const { id } = Route.useSearch();
   const editor = useMemo(() => createYooptaEditor(), []);
   const [value, setValue] = useState<YooptaContentValue>();
   const [title, setTitle] = useState("");
@@ -106,15 +108,20 @@ function RouteComponent() {
   return (
     <div className="p-4 flex flex-col h-full gap-4">
       <div className="space-y-2">
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Select a folder" />
-          </SelectTrigger>
+        <div className="flex gap-x-1">
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a folder" />
+            </SelectTrigger>
 
-          <SelectContent>
-            <SelectItem value="1">Folder 1</SelectItem>
-          </SelectContent>
-        </Select>
+            <SelectContent>
+              <SelectItem value="1">Folder 1</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Button>Save</Button>
+          {id && <Button variant="destructive">Delete</Button>}
+        </div>
 
         <Input
           placeholder="Title"

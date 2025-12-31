@@ -118,3 +118,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.yoopta-editor {
+  padding-left: 80px;
+  padding-right: 80px;
+}
