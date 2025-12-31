@@ -44,6 +44,9 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { useMutation } from "@tanstack/react-query";
+import ConfirmDialog from "@/components/dialog/ConfirmDialog";
 
 const plugins = [
   YooptaParagraph,
@@ -95,8 +98,9 @@ export const Route = createFileRoute("/user/document/")({
 function RouteComponent() {
   const { id } = Route.useSearch();
   const editor = useMemo(() => createYooptaEditor(), []);
-  const [value, setValue] = useState<YooptaContentValue>();
-  const [title, setTitle] = useState("");
+  const [value, setValue] = useState<YooptaContentValue>({});
+  const [title, setTitle] = useState("New Document");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const handleChange = useCallback(
     (nextValue: YooptaContentValue, _: YooptaOnChangeOptions) => {
       // console.log(nextValue);
@@ -105,43 +109,95 @@ function RouteComponent() {
     []
   );
 
+  const savingDocumentMutation = useMutation({
+    mutationFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Document saved:", { id, title, value });
+    },
+  });
+
+  const deleteDocumentMutation = useMutation({
+    mutationFn: async (documentId: number) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Document deleted:", documentId);
+    },
+    onSettled: () => {
+      setOpenDeleteDialog(false);
+    },
+  });
+
   return (
-    <div className="p-4 flex flex-col h-full gap-4">
-      <div className="space-y-2">
-        <div className="flex gap-x-1">
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Select a folder" />
-            </SelectTrigger>
+    <>
+      <div className="p-4 flex flex-col h-full gap-4">
+        <div className="space-y-2">
+          <div className="flex gap-x-1">
+            <Select disabled={savingDocumentMutation.isPending}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a folder" />
+              </SelectTrigger>
 
-            <SelectContent>
-              <SelectItem value="1">Folder 1</SelectItem>
-            </SelectContent>
-          </Select>
+              <SelectContent>
+                <SelectItem value="1">Folder 1</SelectItem>
+              </SelectContent>
+            </Select>
 
-          <Button>Save</Button>
-          {id && <Button variant="destructive">Delete</Button>}
+            <Button
+              onClick={() => savingDocumentMutation.mutate()}
+              disabled={savingDocumentMutation.isPending}
+            >
+              {savingDocumentMutation.isPending ? "Saving..." : "Save"}
+            </Button>
+            {id && (
+              <Button
+                variant="destructive"
+                onClick={() => setOpenDeleteDialog(true)}
+                disabled={savingDocumentMutation.isPending}
+              >
+                Delete
+              </Button>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="document-title">Title</Label>
+            <Input
+              id="document-title"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              disabled={savingDocumentMutation.isPending}
+            />
+          </div>
         </div>
+        <Separator />
+        <div className="border rounded flex-1">
+          <YooptaEditor
+            editor={editor}
+            placeholder="Start outlining your next knowledge base article..."
+            value={value}
+            onChange={handleChange}
+            plugins={plugins}
+            tools={tools}
+            marks={marks}
+            style={{ width: "100%" }}
+          />
+        </div>
+      </div>
 
-        <Input
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+      {id && (
+        <ConfirmDialog
+          open={openDeleteDialog}
+          title="Delete Document"
+          description="Are you sure you want to delete this document?"
+          onCancel={() => setOpenDeleteDialog(false)}
+          onConfirm={() => deleteDocumentMutation.mutate(id)}
+          confirmText={
+            deleteDocumentMutation.isPending ? "Deleting..." : "Delete"
+          }
+          loading={deleteDocumentMutation.isPending}
+          variant="destructive"
         />
-      </div>
-      <Separator />
-      <div className="border rounded flex-1">
-        <YooptaEditor
-          editor={editor}
-          placeholder="Start outlining your next knowledge base article..."
-          value={value}
-          onChange={handleChange}
-          plugins={plugins}
-          tools={tools}
-          marks={marks}
-          style={{ width: "100%" }}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
