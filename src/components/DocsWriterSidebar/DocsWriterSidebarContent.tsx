@@ -8,6 +8,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -67,6 +68,7 @@ export default function DocsWriterSidebarContent() {
     <>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Folders</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mockFolders.map((folder) => (
