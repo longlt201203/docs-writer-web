@@ -53,7 +53,11 @@ function RouteComponent() {
 
       return response
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const accessToken = response.data?.accessToken
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken)
+      }
       navigate({ to: '/' })
     },
   })
@@ -73,7 +77,11 @@ function RouteComponent() {
 
       return response
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const accessToken = response.data?.accessToken
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken)
+      }
       navigate({ to: '/user' })
     },
   })

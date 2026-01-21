@@ -18,6 +18,14 @@ const defaultConfig: AxiosRequestConfig = {
 	timeout: 15000,
 };
 
+const getAccessToken = () => {
+	try {
+		return localStorage.getItem('accessToken');
+	} catch {
+		return null;
+	}
+};
+
 class ApiClient {
 	private readonly client: AxiosInstance;
 
@@ -25,6 +33,15 @@ class ApiClient {
 		this.client = axios.create({
 			...defaultConfig,
 			...config,
+		});
+
+		this.client.interceptors.request.use((request) => {
+			const accessToken = getAccessToken();
+			if (!accessToken) return request;
+
+			request.headers = request.headers ?? {};
+			request.headers.Authorization = `Bearer ${accessToken}`;
+			return request;
 		});
 	}
 

@@ -29,7 +29,6 @@ import {
 import type {
   SlateElement,
   YooptaContentValue,
-  YooptaOnChangeOptions,
   YooptaPlugin,
 } from "@yoopta/editor";
 import YooptaEditor, { createYooptaEditor } from "@yoopta/editor";
@@ -47,6 +46,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useMutation } from "@tanstack/react-query";
 import ConfirmDialog from "@/components/dialog/ConfirmDialog";
+import { useDocuments } from "@/hooks/use-documents";
 
 const plugins = [
   YooptaParagraph,
@@ -97,12 +97,13 @@ export const Route = createFileRoute("/user/document/")({
 
 function RouteComponent() {
   const { id } = Route.useSearch();
+  const documentsQuery = useDocuments();
   const editor = useMemo(() => createYooptaEditor(), []);
   const [value, setValue] = useState<YooptaContentValue>({});
   const [title, setTitle] = useState("New Document");
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const handleChange = useCallback(
-    (nextValue: YooptaContentValue, _: YooptaOnChangeOptions) => {
+    (nextValue: YooptaContentValue) => {
       // console.log(nextValue);
       setValue(nextValue);
     },
@@ -170,6 +171,13 @@ function RouteComponent() {
           </div>
         </div>
         <Separator />
+
+        {documentsQuery.isError ? (
+          <p className="text-sm text-destructive">
+            {documentsQuery.error.message}
+          </p>
+        ) : null}
+
         <div className="border rounded flex-1">
           <YooptaEditor
             editor={editor}
